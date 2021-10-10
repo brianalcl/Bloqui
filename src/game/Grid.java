@@ -21,7 +21,7 @@ public class Grid {
 		this.cantFilas = 21;
 		this.cantColumnas = 10;
 		matriz = new Bloque[cantFilas][cantColumnas];
-		bloqueLibre = new BloqueGrafico(BloqueGrafico.EMPTY_IMAGE, 0);
+		bloqueLibre = new BloqueGrafico(BloqueGrafico.EMPTY_IMAGE);
 		
 		for(int filas = 0; filas < cantFilas; filas++) {
 			for(int columnas = 0; columnas < cantColumnas; columnas++) {

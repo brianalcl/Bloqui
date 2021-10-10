@@ -102,11 +102,11 @@ public class Ventana extends JFrame{
 	 * Agrega en el panel lateral una imagen con el tetromino siguiente quitando antes el anterior.
 	 * @param nombre
 	 */
-	public void agregarSiguiente(String nombre) {
+	public void agregarSiguiente(JLabel tg) {
 		for (int i=0; i<siguientes.length-1; i++) {
 			siguientes[i].setIcon(siguientes[i+1].getIcon());
 		}
-		siguientes[siguientes.length-1].setIcon(new ImageIcon(Ventana.class.getResource("/assets/img/bloques/"+nombre+".png")));
+		siguientes[siguientes.length-1].setIcon(tg.getIcon());
 		repaint();
 	}
 	

@@ -16,12 +16,8 @@ public abstract class Tetromino {
 		this.bloques = new Bloque[4];
 	}
 	
-	/**
-	 * Retorna el nombre (en este caso el nombre del color) del tetromino.
-	 * @return
-	 */
-	public String getNombre() {
-		return nombre;
+	public TetrominoGrafico getTetrominoGrafico() {
+		return miRepresentacion;
 	}
 	
 	/**
@@ -136,10 +132,7 @@ public abstract class Tetromino {
 	 */
 	public boolean aparecer() {
 		
-		
 		boolean sePuedeGenerar = true;
-		
-		miRepresentacion = new TetrominoGrafico(nombre, 0);
 		
 		for(int i=0; i<bloques.length && sePuedeGenerar; i++) {
 			sePuedeGenerar = bloques[i].estaLibre();

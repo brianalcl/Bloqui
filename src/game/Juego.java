@@ -78,31 +78,31 @@ public class Juego {
 		switch ( tirada ) {
 		case 0:	tet = new 
 			TetrominoI(grillaPrincipal);
-			miVentana.agregarSiguiente(tet.getNombre());
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
 			break;
 		case 1:	
 			tet = new TetrominoL(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getNombre());
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
 			break;
 		case 2:	
 			tet = new TetrominoJ(grillaPrincipal);
-			miVentana.agregarSiguiente(tet.getNombre());
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
 			break;
 		case 3:	
 			tet = new TetrominoO(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getNombre());
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
 			break;
 		case 4:	
 			tet = new TetrominoS(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getNombre());
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
 			break;
 		case 5:	
 			tet = new TetrominoT(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getNombre());
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
 			break;
 		case 6:	
 			tet = new TetrominoZ(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getNombre());
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
 			break;
 		default: //TODO Colocar excepcion
 		}

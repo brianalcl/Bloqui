@@ -11,17 +11,15 @@ public class BloqueGrafico extends JLabel{
 	
 	private int rotacionImagen;
 	private String nombre;
-	public static final String EMPTY_IMAGE = "/assets/img/bloques/empty0.png";
+	public static final String EMPTY_IMAGE = "empty";
 	
 	/**
 	 * Crea un bloque grafico.
 	 * @param nombre el nombre del bloque.
-	 * @param rotacion la rotacion del bloque.
 	 */
-	public BloqueGrafico(String nombre, int rotacion) {
-		
+	public BloqueGrafico(String nombre) {
 		super();
-		this.rotacionImagen = rotacion;
+		this.rotacionImagen = 0;
 		this.nombre = nombre;
 		
 		setImagen(this.nombre);
@@ -32,21 +30,8 @@ public class BloqueGrafico extends JLabel{
 	 * @param nombre el nombre del bloque.
 	 */
 	public void setImagen(String nombre) {
-		if(!this.nombre.equals(EMPTY_IMAGE)) {
-			String rutaImagen = "/assets/img/bloques/" + nombre + rotacionImagen + ".png";
-			this.setIcon(new javax.swing.ImageIcon(game.tetrominos.BloqueGrafico.class.getResource(rutaImagen)));
-		}
-		else {
-			limpiar();
-		}
-	}
-	
-	/**
-	 * Limpia el bloque grafico, es decir le coloca una imagen vacia y restaura la rotacion.
-	 */
-	private void limpiar() {
-		this.setIcon(new javax.swing.ImageIcon(game.tetrominos.BloqueGrafico.class.getResource(EMPTY_IMAGE)));
-			this.rotacionImagen = 0;
+		String rutaImagen = "/assets/img/bloques/" + nombre + rotacionImagen + ".png";
+		this.setIcon(new javax.swing.ImageIcon(game.tetrominos.BloqueGrafico.class.getResource(rutaImagen)));
 	}
 	
 	/**

@@ -7,19 +7,19 @@ public class TetrominoGrafico extends JLabel{
 	 * Serial por defecto
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private BloqueGrafico[] misBloquesGraficos;
 	
 	/**
 	 * Crea un tetromino grafico.
 	 * @param nombre el nombre del tetromino.
-	 * @param rotacion la rotacion del tetromino.
 	 */
-	public TetrominoGrafico(String nombre, int rotacion) {
+	public TetrominoGrafico(String nombre) {
 		misBloquesGraficos = new BloqueGrafico[4];
 		
+		this.setIcon(new javax.swing.ImageIcon(game.tetrominos.TetrominoGrafico.class.getResource("/assets/img/bloques/"+nombre+".png")));
+		
 		for (int i = 0; i < 4; i++) {
-			misBloquesGraficos[i] = new BloqueGrafico(nombre, 0);
+			misBloquesGraficos[i] = new BloqueGrafico(nombre);
 		}
 		
 	}

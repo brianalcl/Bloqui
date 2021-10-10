@@ -14,6 +14,7 @@ public class TetrominoI extends Tetromino{
 		bloques[1] = miGrilla.getBloque(1, 4);
 		bloques[2] = miGrilla.getBloque(1, 5);
 		bloques[3] = miGrilla.getBloque(1, 6);
+		miRepresentacion = new TetrominoGrafico(nombre);
 	}
 	
 	@Override

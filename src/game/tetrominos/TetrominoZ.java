@@ -2,36 +2,18 @@ package game.tetrominos;
 
 import game.Grid;
 
-public class Tetromino_Z extends Tetromino{
+public class TetrominoZ extends Tetromino{
 	
 	/**
 	 * Crea un nuevo tetromino de tipo Z con una grilla.
 	 */
-	public Tetromino_Z(Grid grilla) {
+	public TetrominoZ(Grid grilla) {
 		super(grilla);
 		this.nombre="red";
-	}
-	
-	@Override
-	public boolean aparecer() {
 		bloques[0] = miGrilla.getBloque(1, 4);
 		bloques[1] = miGrilla.getBloque(0, 3);
 		bloques[2] = miGrilla.getBloque(0, 4);
 		bloques[3] = miGrilla.getBloque(1, 5);
-		
-		boolean sePuedeGenerar = true;
-		
-		miRepresentacion = new TetrominoGrafico(nombre, 0);
-		
-		for(int i=0; i<bloques.length && sePuedeGenerar; i++) {
-			sePuedeGenerar = bloques[i].estaLibre();
-		}
-		
-		if (sePuedeGenerar)
-			for (int i = 0; i < bloques.length; i++) 
-				bloques[i].ocupar(miRepresentacion.getBloqueGrafico(i));
-		
-		return sePuedeGenerar;
 	}
 	
 	@Override

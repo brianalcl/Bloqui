@@ -6,13 +6,13 @@ import java.util.Random;
 
 import game.tetrominos.Bloque;
 import game.tetrominos.Tetromino;
-import game.tetrominos.Tetromino_I;
-import game.tetrominos.Tetromino_L;
-import game.tetrominos.Tetromino_J;
-import game.tetrominos.Tetromino_O;
-import game.tetrominos.Tetromino_S;
-import game.tetrominos.Tetromino_T;
-import game.tetrominos.Tetromino_Z;
+import game.tetrominos.TetrominoI;
+import game.tetrominos.TetrominoL;
+import game.tetrominos.TetrominoJ;
+import game.tetrominos.TetrominoO;
+import game.tetrominos.TetrominoS;
+import game.tetrominos.TetrominoT;
+import game.tetrominos.TetrominoZ;
 import gui.Ventana;
 import threads.Reloj;
 
@@ -36,16 +36,18 @@ public class Juego {
 	private int nivel;
 	
 	private boolean terminoElJuego;
+	private Random rnd;
 
 	/**
 	 * Crea un juego nuevo.
 	 */
 	public Juego() {
-		this.miVentana=new Ventana(this);
+		this.miVentana = new Ventana(this);
 		grillaPrincipal=new Grid(this);
 		this.segundos = 0;
 		this.puntaje=0;
 		nivel=1;
+		this.rnd = new Random();
 		
 		miVentana.actualizarPuntaje(puntaje);
 		miVentana.actualizarTiempo(segundos);
@@ -53,7 +55,7 @@ public class Juego {
 		
 		this.terminoElJuego = false;
 		
-		tetrominos = new LinkedList<Tetromino>();
+		tetrominos = new LinkedList<>();
 		tetrominos.add(crearTetromino());
 		tetrominos.add(crearTetromino());
 		tetrominos.add(crearTetromino());
@@ -71,37 +73,38 @@ public class Juego {
 	private Tetromino crearTetromino() {
 		Tetromino tet = null;
 
-		Random rnd = new Random();		
+		rnd = new Random();		
 		int tirada = rnd.nextInt(7); // Numero aleatorio en [0,7)
 		switch ( tirada ) {
 		case 0:	tet = new 
-			Tetromino_I(grillaPrincipal);
+			TetrominoI(grillaPrincipal);
 			miVentana.agregarSiguiente(tet.getNombre());
 			break;
 		case 1:	
-			tet = new Tetromino_L(grillaPrincipal);	
+			tet = new TetrominoL(grillaPrincipal);	
 			miVentana.agregarSiguiente(tet.getNombre());
 			break;
 		case 2:	
-			tet = new Tetromino_J(grillaPrincipal);
+			tet = new TetrominoJ(grillaPrincipal);
 			miVentana.agregarSiguiente(tet.getNombre());
 			break;
 		case 3:	
-			tet = new Tetromino_O(grillaPrincipal);	
+			tet = new TetrominoO(grillaPrincipal);	
 			miVentana.agregarSiguiente(tet.getNombre());
 			break;
 		case 4:	
-			tet = new Tetromino_S(grillaPrincipal);	
+			tet = new TetrominoS(grillaPrincipal);	
 			miVentana.agregarSiguiente(tet.getNombre());
 			break;
 		case 5:	
-			tet = new Tetromino_T(grillaPrincipal);	
+			tet = new TetrominoT(grillaPrincipal);	
 			miVentana.agregarSiguiente(tet.getNombre());
 			break;
 		case 6:	
-			tet = new Tetromino_Z(grillaPrincipal);	
+			tet = new TetrominoZ(grillaPrincipal);	
 			miVentana.agregarSiguiente(tet.getNombre());
 			break;
+		default: //TODO Colocar excepcion
 		}
 		
 		return tet;
@@ -213,7 +216,7 @@ public class Juego {
 		miVentana.actualizarNivel(nivel);
 		
 		grillaPrincipal.restaurar();
-		tetrominos = new LinkedList<Tetromino>();
+		tetrominos.clear();
 		tetrominos.add(crearTetromino());
 		tetrominos.add(crearTetromino());
 		tetrominos.add(crearTetromino());
@@ -224,7 +227,6 @@ public class Juego {
 		tetrominoActual.aparecer();
 		
 		miReloj.detener();
-		
 		miReloj = new Reloj(this, 1000);
 		miReloj.start();
 	}

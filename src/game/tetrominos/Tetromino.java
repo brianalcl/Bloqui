@@ -10,7 +10,7 @@ public abstract class Tetromino {
 	protected Grid miGrilla;
 	protected String nombre;
 	
-	public Tetromino(Grid grilla) {
+	protected Tetromino(Grid grilla) {
 		this.rotacion = 0;
 		this.miGrilla = grilla;
 		this.bloques = new Bloque[4];
@@ -134,10 +134,26 @@ public abstract class Tetromino {
 	 * Permite que el tetromino se genere, si este no tiene espacio retornara false de lo contrario retornara true y se generara.
 	 * @return
 	 */
-	public abstract boolean aparecer();
+	public boolean aparecer() {
+		
+		
+		boolean sePuedeGenerar = true;
+		
+		miRepresentacion = new TetrominoGrafico(nombre, 0);
+		
+		for(int i=0; i<bloques.length && sePuedeGenerar; i++) {
+			sePuedeGenerar = bloques[i].estaLibre();
+		}
+		
+		if (sePuedeGenerar)
+			for (int i = 0; i < bloques.length; i++) 
+				bloques[i].ocupar(miRepresentacion.getBloqueGrafico(i));
+		
+		return sePuedeGenerar;
+	}
 	
 	/**
-	 * Permite rotar el tetromino cambioando la posicion de cada bloque por otra.
+	 * Permite rotar el tetromino cambiando la posicion de cada bloque por otra.
 	 * Si no se puede rotar retorna false, si se puede rotar, rota y retorna, true.
 	 * @param f0 la fila del bloque 0.
 	 * @param c0 la columna del bloque 0.
@@ -150,13 +166,14 @@ public abstract class Tetromino {
 	 * @return true si pudo rotar, false si no pudo rotar.
 	 */
 	protected boolean rotar(int f0, int c0, int f1, int c1, int f2, int c2, int f3, int c3) { //son corrimientos
+		//TODO añadir metodos auxiliares, reducir cantidad de parametros del metodo (usar pares)
 		boolean libre = true;
 		int f=0;	
 		int c=0;
 		Bloque aux = null;
 		
-		f=bloques[1].getFila()+f0;	
-		c=bloques[1].getColumna()+c0;
+		f=bloques[0].getFila()+f0;	
+		c=bloques[0].getColumna()+c0;
 		libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
 		if(libre)
 			aux = miGrilla.getBloque(f, c);
@@ -201,6 +218,21 @@ public abstract class Tetromino {
 		}
 		return libre;
 	}
+	
+//	private boolean estaLibre() {
+//		int f=0;	
+//		int c=0;
+//		boolean libre=true;
+//		for(int i=0; i<bloques.length; i++) {
+//			f=bloques[i].getFila()+f0;	
+//			c=bloques[i].getColumna()+c0;
+//			libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
+//			if(libre)
+//				aux = miGrilla.getBloque(f, c);
+//			libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
+//		}
+//		return libre;
+//	}
 	
 	/**
 	 * Retorna true si el bloque b esta dentro de la estructura de bloques

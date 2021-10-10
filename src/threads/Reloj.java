@@ -27,8 +27,10 @@ public class Reloj extends Thread{
 	}
 	
 	/**
+	 * {@inheritDoc}
 	 * Inicia el reloj.
 	 */
+	@Override
 	public void run() {
 		int cant=0;
 		int nivel=0;
@@ -46,6 +48,7 @@ public class Reloj extends Thread{
 				this.activo = !miJuego.terminoElJuego();
 				this.step = miJuego.velocidad();
 			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
 				e.printStackTrace();
 			}
 		}

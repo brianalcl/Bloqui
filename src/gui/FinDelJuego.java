@@ -17,6 +17,8 @@ public class FinDelJuego extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private static final String FUENTE = "SansSerif";
+	
 	private JButton btnFinDeJuegoRestart;
 	private JButton btnFinDeJuegoExit;
 	private JLabel lblFinDeJuego;
@@ -32,28 +34,19 @@ public class FinDelJuego extends JPanel {
 		setBounds(130, 125, 290, 375);
 		setLayout(null);
 		
-		
-		btnFinDeJuegoRestart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				v.restaurar();
-			}
-		});
+		btnFinDeJuegoRestart.addActionListener((actionEvent) -> { v.restaurar(); });
+
 		btnFinDeJuegoRestart.setBackground(Color.CYAN);
-		btnFinDeJuegoRestart.setFont(new Font("SansSerif", Font.BOLD, 20));
+		btnFinDeJuegoRestart.setFont(new Font(FUENTE, Font.BOLD, 20));
 		btnFinDeJuegoRestart.setForeground(Color.BLACK);
 		btnFinDeJuegoRestart.setBounds(32, 227, 226, 50);
 		add(btnFinDeJuegoRestart);
 		
-		
-		btnFinDeJuegoExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		btnFinDeJuegoExit.addActionListener((actionEvent) -> { System.exit(0); });
 		
 		btnFinDeJuegoExit.setBackground(Color.CYAN);
 		btnFinDeJuegoExit.setForeground(Color.BLACK);
-		btnFinDeJuegoExit.setFont(new Font("SansSerif", Font.BOLD, 20));
+		btnFinDeJuegoExit.setFont(new Font(FUENTE, Font.BOLD, 20));
 		btnFinDeJuegoExit.setBounds(32, 295, 226, 50);
 		add(btnFinDeJuegoExit);
 		

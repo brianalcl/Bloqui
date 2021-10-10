@@ -22,20 +22,19 @@ public class Ventana extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private static final String FUENTE = "SansSerif";
+	
 	private JPanel panelDeJuego;
-	private JLabel lblTime;
 	private JLabel lblInfoTime;
-	private JLabel lblScore;
 	private JLabel lblInfoScore;
-	private JLabel lblNext;
-	private Juego miJuego;
+	
+	private transient Juego miJuego;
 	private JLabel[][] matrizPrincipal;
 	private JLabel[] siguientes;
-	private JLabel background_1;
 	private JPanel panelSigsTet;
 	private JLabel lblInfoLevel;
-	private JLabel lblLevel;
 	private FinDelJuego panelFinDeJuego;
+	
 	
 	public Ventana(Juego juego) {
 		this.miJuego = juego;
@@ -52,7 +51,7 @@ public class Ventana extends JFrame{
 		getContentPane().setLayout(null);
 		setResizable(false);
 		setBounds(100, 100, 565, 663);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setIconImage(new ImageIcon(getClass().getResource("/assets/img/icon/Icon.png")).getImage());
 		setTitle("Bloqui");
@@ -150,14 +149,14 @@ public class Ventana extends JFrame{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_LEFT:
+				int code = e.getKeyCode();
+				
+				if (code == KeyEvent.VK_LEFT) {
 					miJuego.operar(Juego.MOVER_IZQUIERDA); 
-					break;
-				case KeyEvent.VK_RIGHT:
+				} else if (code == KeyEvent.VK_RIGHT) {
 					miJuego.operar(Juego.MOVER_DERECHA);
-					break;
 				}
+				
 			}
 
 		});
@@ -210,10 +209,10 @@ public class Ventana extends JFrame{
 	 * Coloca la imagen de fondo de la ventana.
 	 */
 	private void crearFondoVentana() {
-		background_1 = new JLabel("");
-		background_1.setIcon(new ImageIcon(Ventana.class.getResource("/assets/img/backgrounds/bg.png")));
-		background_1.setBounds(0, 0, 550, 625);
-		getContentPane().add(background_1);
+		JLabel background = new JLabel("");
+		background.setIcon(new ImageIcon(Ventana.class.getResource("/assets/img/backgrounds/bg.png")));
+		background.setBounds(0, 0, 550, 625);
+		getContentPane().add(background);
 	}
 	
 	/**
@@ -233,11 +232,12 @@ public class Ventana extends JFrame{
 	 * los tetrominos siguientes.
 	 */
 	private void crearInfoTetro() {
-		lblNext = new JLabel("NEXT");
+		
+		JLabel lblNext = new JLabel("NEXT");
 		lblNext.setBounds(425, 408, 100, 25);
 		lblNext.setForeground(new java.awt.Color(0, 0, 25));
 		lblNext.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNext.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblNext.setFont(new Font(FUENTE, Font.BOLD, 20));
 		
 		getContentPane().add(lblNext);
 		
@@ -259,46 +259,47 @@ public class Ventana extends JFrame{
 	 * Crea los distintos labels que indican los stats del juego.
 	 */
 	private void crearInfoStats() {
-		lblScore = new JLabel("SCORE");
+		
+		JLabel lblScore = new JLabel("SCORE");
 		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
 		lblScore.setForeground(new java.awt.Color(0, 0, 25));
-		lblScore.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblScore.setFont(new Font(FUENTE, Font.BOLD, 20));
 		lblScore.setBounds(25, 450, 100, 25);
 		getContentPane().add(lblScore);
 		
 		lblInfoScore = new JLabel("0");
 		lblInfoScore.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfoScore.setForeground(new java.awt.Color(0,0,25));
-		lblInfoScore.setFont(new Font("SansSerif", Font.BOLD, 22));
+		lblInfoScore.setFont(new Font(FUENTE, Font.BOLD, 22));
 		lblInfoScore.setBounds(25, 479, 100, 50);
 		getContentPane().add(lblInfoScore);
 		
-		lblLevel = new JLabel("LEVEL");
+		JLabel lblLevel = new JLabel("LEVEL");
 		lblLevel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLevel.setForeground(new java.awt.Color(0, 0, 25));
-		lblLevel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblLevel.setFont(new Font(FUENTE, Font.BOLD, 20));
 		lblLevel.setBounds(25, 200, 100, 25);
 		getContentPane().add(lblLevel);
 		
 		lblInfoLevel = new JLabel("0");
 		lblInfoLevel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfoLevel.setForeground(new java.awt.Color(0, 0, 25));
-		lblInfoLevel.setFont(new Font("SansSerif", Font.BOLD, 22));
+		lblInfoLevel.setFont(new Font(FUENTE, Font.BOLD, 22));
 		lblInfoLevel.setBounds(25, 228, 100, 50);
-		
 		getContentPane().add(lblInfoLevel);
-		lblTime = new JLabel("TIME");
+		
+		JLabel lblTime = new JLabel("TIME");
 		lblTime.setBackground(new java.awt.Color(255,255,255));
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTime.setForeground(new java.awt.Color(0, 0, 25));
-		lblTime.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblTime.setFont(new Font(FUENTE, Font.BOLD, 20));
 		lblTime.setBounds(25, 325, 100, 25);
 		getContentPane().add(lblTime);
 		
 		lblInfoTime = new JLabel("00:00");
 		lblInfoTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfoTime.setForeground(new java.awt.Color(0, 0, 25));
-		lblInfoTime.setFont(new Font("SansSerif", Font.BOLD, 22));
+		lblInfoTime.setFont(new Font(FUENTE, Font.BOLD, 22));
 		lblInfoTime.setBounds(25, 353, 100, 50);
 		getContentPane().add(lblInfoTime);
 	}

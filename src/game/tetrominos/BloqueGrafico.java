@@ -21,7 +21,6 @@ public class BloqueGrafico extends JLabel{
 		super();
 		this.rotacionImagen = 0;
 		this.nombre = nombre;
-		
 		setImagen(this.nombre);
 	}
 	
@@ -30,7 +29,11 @@ public class BloqueGrafico extends JLabel{
 	 * @param nombre el nombre del bloque.
 	 */
 	public void setImagen(String nombre) {
-		String rutaImagen = "/assets/img/bloques/" + nombre + rotacionImagen + ".png";
+		String rutaImagen = new StringBuilder("/assets/img/bloques/")
+				.append(nombre)
+				.append(rotacionImagen)
+				.append(".png")
+				.toString();
 		this.setIcon(new javax.swing.ImageIcon(game.tetrominos.BloqueGrafico.class.getResource(rutaImagen)));
 	}
 	

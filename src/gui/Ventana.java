@@ -61,7 +61,6 @@ public class Ventana extends JFrame{
 		crearInfoTetro();
 		crearPanelJuego();
 		crearFondoVentana();
-		llenarPanelJuego();
 		agregarControles();
 		
 		repaint();
@@ -72,7 +71,7 @@ public class Ventana extends JFrame{
 	 * @param puntaje el puntaje.
 	 */
 	public void actualizarPuntaje(int puntaje) {
-		lblInfoScore.setText(""+puntaje);
+		lblInfoScore.setText("" + puntaje);
 	}
 	
 	/**
@@ -80,7 +79,7 @@ public class Ventana extends JFrame{
 	 * @param nivel el nivel.
 	 */
 	public void actualizarNivel(int nivel) {
-		lblInfoLevel.setText(""+nivel);
+		lblInfoLevel.setText("" + nivel);
 	}
 	
 	/**
@@ -103,10 +102,10 @@ public class Ventana extends JFrame{
 	 * @param nombre
 	 */
 	public void agregarSiguiente(JLabel tg) {
-		for (int i=0; i<siguientes.length-1; i++) {
+		for (int i = 0; i < siguientes.length - 1; i++) {
 			siguientes[i].setIcon(siguientes[i+1].getIcon());
 		}
-		siguientes[siguientes.length-1].setIcon(tg.getIcon());
+		siguientes[siguientes.length - 1].setIcon(tg.getIcon());
 		repaint();
 	}
 	
@@ -194,18 +193,6 @@ public class Ventana extends JFrame{
 	}
 	
 	/**
-	 * Llena todo el panel del juego con labels
-	 */
-	private void llenarPanelJuego() {
-		for(int i=0; i<21; i++) {
-			for(int j=0; j<10; j++) {
-				matrizPrincipal[i][j] = new JLabel();
-				panelDeJuego.add(matrizPrincipal[i][j]);
-			}
-		}
-	}
-	
-	/**
 	 * Coloca la imagen de fondo de la ventana.
 	 */
 	private void crearFondoVentana() {
@@ -216,7 +203,7 @@ public class Ventana extends JFrame{
 	}
 	
 	/**
-	 * Crea el panel por el cual caeran los tetrominos.
+	 * Crea el panel por el cual caeran los tetrominos y lo llena de labels.
 	 */
 	private void crearPanelJuego() {
 		panelDeJuego = new JPanel();
@@ -224,6 +211,12 @@ public class Ventana extends JFrame{
 		panelDeJuego.setBounds(150, 50, 250, 525);
 		panelDeJuego.setLayout(new GridLayout(21, 10, 0, 0));
 		getContentPane().add(panelDeJuego);
+		for(int i = 0; i < 21; i++) {
+			for(int j = 0; j < 10; j++) {
+				matrizPrincipal[i][j] = new JLabel();
+				panelDeJuego.add(matrizPrincipal[i][j]);
+			}
+		}
 	}
 	
 	/**
@@ -232,13 +225,11 @@ public class Ventana extends JFrame{
 	 * los tetrominos siguientes.
 	 */
 	private void crearInfoTetro() {
-		
 		JLabel lblNext = new JLabel("NEXT");
 		lblNext.setBounds(425, 408, 100, 25);
 		lblNext.setForeground(new java.awt.Color(0, 0, 25));
 		lblNext.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNext.setFont(new Font(FUENTE, Font.BOLD, 20));
-		
 		getContentPane().add(lblNext);
 		
 		panelSigsTet = new JPanel();
@@ -247,10 +238,8 @@ public class Ventana extends JFrame{
 		panelSigsTet.setBackground(new java.awt.Color(0, 0, 25));
 		getContentPane().add(panelSigsTet);
 		
-		
-		for(int i=0; i<siguientes.length; i++) {
+		for(int i = 0; i < siguientes.length; i++) {
 			siguientes[i] = new JLabel();
-			siguientes[i].setIcon(new ImageIcon(Ventana.class.getResource("/assets/img/bloques/empty.png")));
 			panelSigsTet.add(siguientes[i]);
 		}
 	}
@@ -269,7 +258,7 @@ public class Ventana extends JFrame{
 		
 		lblInfoScore = new JLabel("0");
 		lblInfoScore.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInfoScore.setForeground(new java.awt.Color(0,0,25));
+		lblInfoScore.setForeground(new java.awt.Color(0, 0, 25));
 		lblInfoScore.setFont(new Font(FUENTE, Font.BOLD, 22));
 		lblInfoScore.setBounds(25, 479, 100, 50);
 		getContentPane().add(lblInfoScore);
@@ -289,7 +278,6 @@ public class Ventana extends JFrame{
 		getContentPane().add(lblInfoLevel);
 		
 		JLabel lblTime = new JLabel("TIME");
-		lblTime.setBackground(new java.awt.Color(255,255,255));
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTime.setForeground(new java.awt.Color(0, 0, 25));
 		lblTime.setFont(new Font(FUENTE, Font.BOLD, 20));

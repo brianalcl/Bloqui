@@ -21,6 +21,10 @@ public abstract class Tetromino {
 		}
 	}
 	
+	/**
+	 * Retorna un tetromino grafico
+	 * @return un tetromino grafico
+	 */
 	public TetrominoGrafico getTetrominoGrafico() {
 		return miRepresentacion;
 	}
@@ -30,7 +34,9 @@ public abstract class Tetromino {
 	 * 
 	 */
 	public void moverIzquierda() {
-		mover(0, -1);
+		boolean sePuede = verificarMovimiento(0, -1);
+		if(sePuede)
+			mover(0, -1);
 	}
 
 	/**
@@ -38,7 +44,9 @@ public abstract class Tetromino {
 	 * 
 	 */
 	public void moverDerecha() {
-		mover(0, 1);
+		boolean sePuede = verificarMovimiento(0, 1);
+		if(sePuede)
+			mover(0, 1);
 	}
 	
 	/**
@@ -48,51 +56,31 @@ public abstract class Tetromino {
 	 */
 	public boolean bajar() {
 		boolean choco = false;
-		Bloque bloqueAct = null;
-		Bloque bloqueAdya = null;
-		int columna = 0;
-		int fila = 0;
 		boolean sePuede = true;
 		
-		for(int i=0; i<bloques.length && sePuede; i++) {
-			bloqueAct = bloques[i];
-			columna = bloqueAct.getColumna();
-			fila = bloqueAct.getFila()+1;
-			if(fila <= 20) {
-				bloqueAdya = miGrilla.getBloque(fila, columna);
-				sePuede = (!bloqueAdya.estaLibre() && estaEnBloques(bloqueAdya, bloques)) || bloqueAdya.estaLibre();
-			}
-			else {
-				sePuede = false;
-			}
-		}
+		sePuede = verificarMovimiento(1, 0);
 		
 		if(sePuede) {
-			for(int i=0; i<bloques.length; i++) {
-				bloqueAct = bloques[i];
-				bloqueAct.desocupar();
-			}
-			for(int i=0; i<bloques.length; i++) {
-				bloqueAct = bloques[i];
-				bloqueAct = miGrilla.getBloque(bloqueAct.getFila()+1, bloqueAct.getColumna());
-				BloqueGrafico bg= miRepresentacion.getBloqueGrafico(i);
-				bloqueAct.ocupar(bg);
-				bloques[i] = bloqueAct;
-			}
+			mover(1, 0);
 		}
 		else {
 			choco = true;
 		}
 		return choco;
 	}
-
-	private void mover(int f, int c) {
+	
+	/**
+	 * Verifica si el movimiento en una direccion dada es posible
+	 * @param f la coordenada de corrimiento en fila
+	 * @param c la coordenada de movimiento en columna
+	 * @return true si se puede mover falso en caso contrario
+	 */
+	private boolean verificarMovimiento(int f, int c) {
 		Bloque bloqueAct = null;
 		Bloque bloqueAdya = null;
 		int columna = 0;
 		int fila = 0;
 		boolean sePuede = true;
-		
 		for(int i=0; i<bloques.length && sePuede; i++) {
 			bloqueAct = bloques[i];
 			fila = bloqueAct.getFila()+f;
@@ -104,20 +92,27 @@ public abstract class Tetromino {
 			else
 				sePuede = false;
 		}
+		return sePuede;
+	}
+	
+	/**
+	 * Mueve el tetromino en una direccion
+	 * @param f la coordenada del corrimiento en filas
+	 * @param c la coordenada del corrimiento en columnas
+	 */
+	private void mover(int f, int c) {
+		Bloque bloqueAct = null;
+		for(int i=0; i<bloques.length; i++) {
+			bloqueAct = bloques[i];
+			bloqueAct.desocupar();
+		}
 		
-		if(sePuede) {
-			for(int i=0; i<bloques.length; i++) {
-				bloqueAct = bloques[i];
-				bloqueAct.desocupar();
-				
-			}
-			for(int i=0; i<bloques.length; i++) {
-				bloqueAct = bloques[i];
-				bloqueAct = miGrilla.getBloque(bloqueAct.getFila()+f, bloqueAct.getColumna()+c);
-				BloqueGrafico bg= miRepresentacion.getBloqueGrafico(i);
-				bloqueAct.ocupar(bg);
-				bloques[i] = bloqueAct;
-			}
+		for(int i=0; i<bloques.length; i++) {
+			bloqueAct = bloques[i];
+			bloqueAct = miGrilla.getBloque(bloqueAct.getFila()+f, bloqueAct.getColumna()+c);
+			BloqueGrafico bg= miRepresentacion.getBloqueGrafico(i);
+			bloqueAct.ocupar(bg);
+			bloques[i] = bloqueAct;
 		}
 	}
 	

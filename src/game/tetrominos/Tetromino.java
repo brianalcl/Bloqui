@@ -1,6 +1,7 @@
 package game.tetrominos;
 
 import game.Grid;
+import utilidades.Pair;
 
 public abstract class Tetromino {
 	
@@ -8,12 +9,16 @@ public abstract class Tetromino {
 	protected int rotacion;
 	protected Bloque[] bloques;
 	protected Grid miGrilla;
-	protected String nombre;
+	protected Pair<Integer, Integer>[] corrimientos;
 	
 	protected Tetromino(Grid grilla) {
 		this.rotacion = 0;
 		this.miGrilla = grilla;
 		this.bloques = new Bloque[4];
+		this.corrimientos = new Pair[4];
+		for(int i = 0; i < corrimientos.length; i++) {
+			corrimientos[i] = new Pair<Integer, Integer>();
+		}
 	}
 	
 	public TetrominoGrafico getTetrominoGrafico() {
@@ -119,12 +124,78 @@ public abstract class Tetromino {
 	/**
 	 * Rota el tetromino a la izquierda.
 	 */
-	public abstract void rotarIzquierda();
+	public void rotarIzquierda() {
+		rotacion = (rotacion + 1) % 4;
+		
+		boolean roto = correrYRotar();
+		
+		rotacion = (rotacion + 2) % 4;
+		
+		if(roto) {
+			miRepresentacion.rotarIzquierda();
+		}
+		else
+			rotacion = (rotacion + 1) % 4;
+	}
 	
 	/**
 	 * Rota el tetromino a la derecha.
 	 */
-	public abstract void rotarDerecha();
+	public void rotarDerecha() {
+		boolean roto = correrYRotar();
+		
+		rotacion = (rotacion + 1) % 4;
+		
+		if(roto) {
+			miRepresentacion.rotarDerecha();
+		}
+		else
+			rotacion = (rotacion + 3) % 4;
+	}
+	
+	/**
+	 * Rota el tetromino girandolo 90° dependiendo del nivel de rotacion que este tenga actualmente.
+	 * @return
+	 */
+	private boolean correrYRotar() {
+		boolean roto = false;
+		switch(rotacion) {
+		case 0:
+			correrA();
+			break;
+		case 1: 
+			correrB();
+			break;
+		case 2: 
+			correrC();
+			break;
+		case 3:
+			correrD();
+			break;
+		}
+		roto = rotar();
+		return roto;
+	}
+	
+	/**
+	 * Establece los corrimientos de los bloques en la primer fase de rotacion
+	 */
+	protected abstract void correrA();
+	
+	/**
+	 * Establece los corrimientos de los bloques en la segunda fase de rotacion
+	 */
+	protected abstract void correrB();
+	
+	/**
+	 * Establece los corrimientos de los bloques en la tercer fase de rotacion
+	 */
+	protected abstract void correrC();
+	
+	/**
+	 * Establece los corrimientos de los bloques en la cuarta fase de rotacion
+	 */
+	protected abstract void correrD();
 	
 	/**
 	 * Permite que el tetromino se genere, si este no tiene espacio retornara false de lo contrario retornara true y se generara.
@@ -146,86 +217,49 @@ public abstract class Tetromino {
 	}
 	
 	/**
-	 * Permite rotar el tetromino cambiando la posicion de cada bloque por otra.
+	 * Permite rotar el tetromino.
 	 * Si no se puede rotar retorna false, si se puede rotar, rota y retorna, true.
-	 * @param f0 la fila del bloque 0.
-	 * @param c0 la columna del bloque 0.
-	 * @param f1 la fila del bloque 1.
-	 * @param c1 la columna del bloque 1.
-	 * @param f2 la fila del bloque 2.
-	 * @param c2 la columna del bloque 2.
-	 * @param f3 la fila del bloque 3.
-	 * @param c3 la columna del bloque 3.
-	 * @return true si pudo rotar, false si no pudo rotar.
 	 */
-	protected boolean rotar(int f0, int c0, int f1, int c1, int f2, int c2, int f3, int c3) { //son corrimientos
-		//TODO añadir metodos auxiliares, reducir cantidad de parametros del metodo (usar pares)
+	protected boolean rotar() {
 		boolean libre = true;
 		int f=0;	
 		int c=0;
-		Bloque aux = null;
 		
-		f=bloques[0].getFila()+f0;	
-		c=bloques[0].getColumna()+c0;
-		libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
-		if(libre)
-			aux = miGrilla.getBloque(f, c);
-		libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
+		libre = verificarRotacion();
 		
-		f=bloques[1].getFila()+f1;	
-		c=bloques[1].getColumna()+c1;
-		libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
-		if(libre)
-			aux = miGrilla.getBloque(f, c);
-		libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
-		
-		f=bloques[2].getFila()+f2;	
-		c=bloques[2].getColumna()+c2;
-		libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
-		if(libre)
-			aux = miGrilla.getBloque(f, c);
-		libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
-		
-		f=bloques[3].getFila()+f3;	
-		c=bloques[3].getColumna()+c3;
-		libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
-		if(libre)
-			aux = miGrilla.getBloque(f, c);
-		libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
-		
-		if(libre) {
-			bloques[0].desocupar();
-			bloques[1].desocupar();
-			bloques[2].desocupar();
-			bloques[3].desocupar();
-			
-			bloques[0] = miGrilla.getBloque(bloques[0].getFila()+f0, bloques[0].getColumna()+c0);
-			bloques[1] = miGrilla.getBloque(bloques[1].getFila()+f1, bloques[1].getColumna()+c1);
-			bloques[2] = miGrilla.getBloque(bloques[2].getFila()+f2, bloques[2].getColumna()+c2);
-			bloques[3] = miGrilla.getBloque(bloques[3].getFila()+f3, bloques[3].getColumna()+c3);
-			
-			bloques[0].ocupar(miRepresentacion.getBloqueGrafico(0));
-			bloques[1].ocupar(miRepresentacion.getBloqueGrafico(1));
-			bloques[2].ocupar(miRepresentacion.getBloqueGrafico(2));
-			bloques[3].ocupar(miRepresentacion.getBloqueGrafico(3));
+		for(int i = 0; libre && i < bloques.length; i++) {
+			bloques[i].desocupar();
 		}
+		
+		for(int i = 0; libre && i < bloques.length; i++) {
+			f = corrimientos[i].getF();
+			c = corrimientos[i].getC();
+			bloques[i] = miGrilla.getBloque(bloques[i].getFila() + f, bloques[i].getColumna() + c);
+			bloques[i].ocupar(miRepresentacion.getBloqueGrafico(i));
+		}
+		
 		return libre;
 	}
 	
-//	private boolean estaLibre() {
-//		int f=0;	
-//		int c=0;
-//		boolean libre=true;
-//		for(int i=0; i<bloques.length; i++) {
-//			f=bloques[i].getFila()+f0;	
-//			c=bloques[i].getColumna()+c0;
-//			libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
-//			if(libre)
-//				aux = miGrilla.getBloque(f, c);
-//			libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
-//		}
-//		return libre;
-//	}
+	/**
+	 * Controla si es posible o no rotar el tetromino
+	 * @return true si se puede rotar false si no se puede rotar
+	 */
+	private boolean verificarRotacion() {
+		boolean libre = true;
+		int f = 0;
+		int c = 0;
+		Bloque aux = null;
+		for(int i = 0; libre && i < bloques.length; i++) {
+			f = bloques[i].getFila() + corrimientos[i].getF();	
+			c = bloques[i].getColumna() + corrimientos[i].getC();
+			libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
+			if(libre)
+				aux = miGrilla.getBloque(f, c);
+			libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
+		}
+		return libre;
+	}
 	
 	/**
 	 * Retorna true si el bloque b esta dentro de la estructura de bloques

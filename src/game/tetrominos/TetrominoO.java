@@ -9,60 +9,42 @@ public class TetrominoO extends Tetromino{
 	 */
 	public TetrominoO(Grid grilla) {
 		super(grilla);
-		this.nombre="yellow";
 		bloques[0] = miGrilla.getBloque(0, 4);
 		bloques[1] = miGrilla.getBloque(0, 5);
 		bloques[2] = miGrilla.getBloque(1, 4);
 		bloques[3] = miGrilla.getBloque(1, 5);
-		miRepresentacion = new TetrominoGrafico(nombre);
+		miRepresentacion = new TetrominoGrafico("yellow");
 	}
 	
 	@Override
-	public void rotarDerecha() {
-		boolean roto = false;
-		switch(rotacion) {
-		case 0: 
-			roto = rotar(0, 1, 1, 0, -1, 0, 0 ,-1); //a
-			break;
-		case 1: 
-			roto = rotar(1, 0, 0, -1, 0, 1, -1, 0); //b
-			break;
-		case 2: 
-			roto = rotar(0, -1, -1, 0, 1, 0, 0, 1); //c
-			break;
-		case 3:
-			roto = rotar(-1, 0, 0, 1, 0, -1, 1, 0); //d
-			break;
-		}
-		if(roto) {
-			rotacion = (rotacion +1)%4;
-			miRepresentacion.rotarDerecha();
-		}
+	protected void correrA() {
+		this.corrimientos[0].setFyC(0, 1);
+		this.corrimientos[1].setFyC(1, 0);
+		this.corrimientos[2].setFyC(-1, 0);
+		this.corrimientos[3].setFyC(0, -1);
 	}
 	
 	@Override
-	public void rotarIzquierda() {
-		boolean roto = false;
-		switch(rotacion) {
-		case 0: 
-			roto = rotar(1, 0, 0, -1, 0, 1, -1, 0); //b
-			break;
-		case 1: 
-			roto = rotar(0, -1, -1, 0, 1, 0, 0, 1); //c
-			break;
-		case 2: 
-			roto = rotar(-1, 0, 0, 1, 0, -1, 1, 0); //d
-			break;
-		case 3:
-			roto = rotar(0, 1, 1, 0, -1, 0, 0 ,-1); //a
-			break;
-		}
-		if(roto) {
-			if(rotacion != 0)
-				rotacion = (rotacion - 1) % 4;
-			else
-				rotacion = 3;
-			miRepresentacion.rotarIzquierda();
-		}
+	protected void correrB() {
+		this.corrimientos[0].setFyC(1, 0);
+		this.corrimientos[1].setFyC(0, -1);
+		this.corrimientos[2].setFyC(0, 1);
+		this.corrimientos[3].setFyC(-1, 0);
+	}
+	
+	@Override
+	protected void correrC() {
+		this.corrimientos[0].setFyC(0, -1);
+		this.corrimientos[1].setFyC(-1, 0);
+		this.corrimientos[2].setFyC(1, 0);
+		this.corrimientos[3].setFyC(0, 1);
+	}
+	
+	@Override
+	protected void correrD() {
+		this.corrimientos[0].setFyC(-1, 0);
+		this.corrimientos[1].setFyC(0, 1);
+		this.corrimientos[2].setFyC(0, -1);
+		this.corrimientos[3].setFyC(1, 0);
 	}
 }

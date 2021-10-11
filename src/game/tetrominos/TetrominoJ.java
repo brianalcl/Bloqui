@@ -1,7 +1,6 @@
 package game.tetrominos;
 
 import game.Grid;
-
 public class TetrominoJ extends Tetromino{
 	
 	/**
@@ -9,61 +8,43 @@ public class TetrominoJ extends Tetromino{
 	 */
 	public TetrominoJ(Grid grilla) {
 		super(grilla);
-		this.nombre="blue";
 		bloques[0] = miGrilla.getBloque(1, 4);
 		bloques[1] = miGrilla.getBloque(1, 3);
 		bloques[2] = miGrilla.getBloque(1, 5);
 		bloques[3] = miGrilla.getBloque(0, 5);
-		miRepresentacion = new TetrominoGrafico(nombre);
+		miRepresentacion = new TetrominoGrafico("blue");
 	}
 	
 	@Override
-	public void rotarDerecha() {
-		boolean roto = false;
-		switch(rotacion) {
-		case 0: 
-			roto = rotar(0, 0, -1, 1, 1, -1, 2 ,0); //a
-			break;
-		case 1: 
-			roto = rotar(0, 0, 1, 1, -1, -1, 0, -2); //b
-			break;
-		case 2: 
-			roto = rotar(0, 0, 1, -1, -1, 1, -2, 0); //c
-			break;
-		case 3:
-			roto = rotar(0, 0, -1, -1, 1, 1, 0, 2); //d
-			break;
-		}
-		if(roto) {
-			rotacion = (rotacion +1)%4;
-			miRepresentacion.rotarDerecha();
-		}
+	protected void correrA() {
+		this.corrimientos[0].setFyC(0, 0);
+		this.corrimientos[1].setFyC(-1, 1);
+		this.corrimientos[2].setFyC(1, -1);
+		this.corrimientos[3].setFyC(2, 0);
 	}
 	
 	@Override
-	public void rotarIzquierda() {
-		boolean roto = false;
-		switch(rotacion) {
-		case 0: 
-			roto = rotar(0, 0, 1, 1, -1, -1, 0, -2); //b
-			break;
-		case 1: 
-			roto = rotar(0, 0, 1, -1, -1, 1, -2, 0); //c
-			break;
-		case 2: 
-			roto = rotar(0, 0, -1, -1, 1, 1, 0, 2); //d
-			break;
-		case 3:
-			roto = rotar(0, 0, -1, 1, 1, -1, 2 ,0); //a
-			break;
-		}
-		if(roto) {
-			if(rotacion != 0)
-				rotacion = (rotacion - 1) % 4;
-			else
-				rotacion = 3;
-			miRepresentacion.rotarIzquierda();
-		}
+	protected void correrB() {
+		this.corrimientos[0].setFyC(0, 0);
+		this.corrimientos[1].setFyC(1, 1);
+		this.corrimientos[2].setFyC(-1, -1);
+		this.corrimientos[3].setFyC(0, -2);
+	}
+	
+	@Override
+	protected void correrC() {
+		this.corrimientos[0].setFyC(0, 0);
+		this.corrimientos[1].setFyC(1, -1);
+		this.corrimientos[2].setFyC(-1, 1);
+		this.corrimientos[3].setFyC(-2, 0);
+	}
+	
+	@Override
+	protected void correrD() {
+		this.corrimientos[0].setFyC(0, 0);
+		this.corrimientos[1].setFyC(-1, -1);
+		this.corrimientos[2].setFyC(1, 1);
+		this.corrimientos[3].setFyC(0, 2);
 	}
 	
 }

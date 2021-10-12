@@ -50,7 +50,6 @@ public abstract class Tetromino {
 	
 	/**
 	 * Mueve el tetromino a la izquierda.
-	 * 
 	 */
 	public void moverIzquierda() {
 		boolean sePuede = true;
@@ -70,7 +69,6 @@ public abstract class Tetromino {
 
 	/**
 	 * Mueve el tetromino a la derecha
-	 * 
 	 */
 	public void moverDerecha() {
 		boolean sePuede = true;
@@ -147,9 +145,10 @@ public abstract class Tetromino {
 	}
 	
 	/**
-	 * Mueve el tetromino en una direccion
-	 * @param f la coordenada del corrimiento en filas
-	 * @param c la coordenada del corrimiento en columnas
+	 * Mueve un bloque del tetromino en una direccion
+	 * @param bloque el bloque a mover
+	 * @param corrimiento el corrimiento que tendra el bloque en filas y columnas
+	 * @param pos posicion en el arreglo de bloques
 	 */
 	private void mover(Bloque bloque, Pair<Integer, Integer> corrimiento, int pos) {
 		int f = corrimiento.getF();
@@ -189,10 +188,10 @@ public abstract class Tetromino {
 	}
 	
 	/**
-	 * Verifica si el movimiento en una direccion dada es posible
-	 * @param f la coordenada de corrimiento en fila
-	 * @param c la coordenada de movimiento en columna
-	 * @return true si se puede mover falso en caso contrario
+	 * Verifica si es posible correr un bloque del tetromino en una direccion.
+	 * @param bloque el bloque a correr.
+	 * @param corrimiento el corrimientro que tendra el bloque en filas y columnas.
+	 * @return verdadero si se puede correr falso si no se puede correr.
 	 */
 	private boolean verificarMovimiento(Bloque bloque, Pair<Integer, Integer> corrimiento) {
 		Bloque bloqueAdya = null;

@@ -7,5 +7,4 @@ public class Main {
 		Juego j = new Juego();
 		j.start();
 	}
-
 }

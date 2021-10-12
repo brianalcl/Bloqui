@@ -14,14 +14,14 @@ public class TetrominoGrafico extends JLabel{
 	 * @param nombre el nombre del tetromino.
 	 */
 	public TetrominoGrafico(String nombre) {
-		misBloquesGraficos = new BloqueGrafico[4];
+		this.misBloquesGraficos = new BloqueGrafico[4];
 		
 		String rutaImagen = new StringBuilder("/assets/img/bloques/")
 				.append(nombre)
 				.append(".png")
 				.toString();
 		
-		this.setIcon(new javax.swing.ImageIcon(game.tetrominos.TetrominoGrafico.class.getResource(rutaImagen)));
+		setIcon(new javax.swing.ImageIcon(game.tetrominos.TetrominoGrafico.class.getResource(rutaImagen)));
 		
 		for (int i = 0; i < 4; i++) {
 			misBloquesGraficos[i] = new BloqueGrafico(nombre);

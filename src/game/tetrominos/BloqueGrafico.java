@@ -34,7 +34,7 @@ public class BloqueGrafico extends JLabel{
 				.append(rotacionImagen)
 				.append(".png")
 				.toString();
-		this.setIcon(new javax.swing.ImageIcon(game.tetrominos.BloqueGrafico.class.getResource(rutaImagen)));
+		setIcon(new javax.swing.ImageIcon(game.tetrominos.BloqueGrafico.class.getResource(rutaImagen)));
 	}
 	
 	/**

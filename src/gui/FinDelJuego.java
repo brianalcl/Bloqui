@@ -47,11 +47,9 @@ public class FinDelJuego extends JPanel {
 		btnFinDeJuegoExit.setBounds(32, 295, 226, 50);
 		add(btnFinDeJuegoExit);
 		
-		
 		lblFinDeJuego.setIcon(new ImageIcon(FinDelJuego.class.getResource("/assets/img/backgrounds/bgGameOver.png")));
 		lblFinDeJuego.setBounds(0, 0, 290, 375);
 		add(lblFinDeJuego);
-		
 	}
 
 }

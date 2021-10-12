@@ -38,8 +38,8 @@ public class Ventana extends JFrame{
 	
 	public Ventana(Juego juego) {
 		this.miJuego = juego;
-		matrizPrincipal = new JLabel[21][10];
-		siguientes = new JLabel[3];
+		this.matrizPrincipal = new JLabel[21][10];
+		this.siguientes = new JLabel[3];
 		initialize();
 		
 	}

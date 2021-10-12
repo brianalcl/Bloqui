@@ -56,9 +56,7 @@ public abstract class Tetromino {
 	 */
 	public boolean bajar() {
 		boolean choco = false;
-		boolean sePuede = true;
-		
-		sePuede = verificarMovimiento(1, 0);
+		boolean sePuede = verificarMovimiento(1, 0);
 		
 		if(sePuede) {
 			mover(1, 0);
@@ -70,46 +68,20 @@ public abstract class Tetromino {
 	}
 	
 	/**
-	 * Verifica si el movimiento en una direccion dada es posible
-	 * @param f la coordenada de corrimiento en fila
-	 * @param c la coordenada de movimiento en columna
-	 * @return true si se puede mover falso en caso contrario
-	 */
-	private boolean verificarMovimiento(int f, int c) {
-		Bloque bloqueAct = null;
-		Bloque bloqueAdya = null;
-		int columna = 0;
-		int fila = 0;
-		boolean sePuede = true;
-		for(int i=0; i<bloques.length && sePuede; i++) {
-			bloqueAct = bloques[i];
-			fila = bloqueAct.getFila()+f;
-			columna = bloqueAct.getColumna()+c;
-			if(columna >= 0 && columna <=9 && fila>=0 && fila<=20) {
-				bloqueAdya = miGrilla.getBloque(fila, columna);
-				sePuede = (!bloqueAdya.estaLibre() && estaEnBloques(bloqueAdya, bloques)) || bloqueAdya.estaLibre();
-			}
-			else
-				sePuede = false;
-		}
-		return sePuede;
-	}
-	
-	/**
 	 * Mueve el tetromino en una direccion
 	 * @param f la coordenada del corrimiento en filas
 	 * @param c la coordenada del corrimiento en columnas
 	 */
 	private void mover(int f, int c) {
 		Bloque bloqueAct = null;
-		for(int i=0; i<bloques.length; i++) {
+		for(int i = 0; i < bloques.length; i++) {
 			bloqueAct = bloques[i];
 			bloqueAct.desocupar();
 		}
 		
 		for(int i=0; i<bloques.length; i++) {
 			bloqueAct = bloques[i];
-			bloqueAct = miGrilla.getBloque(bloqueAct.getFila()+f, bloqueAct.getColumna()+c);
+			bloqueAct = miGrilla.getBloque(bloqueAct.getFila() + f, bloqueAct.getColumna() + c);
 			BloqueGrafico bg= miRepresentacion.getBloqueGrafico(i);
 			bloqueAct.ocupar(bg);
 			bloques[i] = bloqueAct;
@@ -173,28 +145,28 @@ public abstract class Tetromino {
 	}
 	
 	/**
-	 * Establece los corrimientos de los bloques en la primer fase de rotacion
+	 * Establece los corrimientos de los bloques en la primer fase de rotacion girando a derecha 90°.
 	 */
 	protected abstract void correrA();
 	
 	/**
-	 * Establece los corrimientos de los bloques en la segunda fase de rotacion
+	 * Establece los corrimientos de los bloques en la segunda fase de rotacion girando a derecha 90°.
 	 */
 	protected abstract void correrB();
 	
 	/**
-	 * Establece los corrimientos de los bloques en la tercer fase de rotacion
+	 * Establece los corrimientos de los bloques en la tercer fase de rotacion girando a derecha 90°.
 	 */
 	protected abstract void correrC();
 	
 	/**
-	 * Establece los corrimientos de los bloques en la cuarta fase de rotacion
+	 * Establece los corrimientos de los bloques en la cuarta fase de rotacion girando a derecha 90°.
 	 */
 	protected abstract void correrD();
 	
 	/**
 	 * Permite que el tetromino se genere, si este no tiene espacio retornara false de lo contrario retornara true y se generara.
-	 * @return
+	 * @return true si puede aparecer, false caso contrario.
 	 */
 	public boolean aparecer() {
 		
@@ -217,8 +189,8 @@ public abstract class Tetromino {
 	 */
 	protected boolean rotar() {
 		boolean libre = true;
-		int f=0;	
-		int c=0;
+		int f = 0;	
+		int c = 0;
 		
 		libre = verificarRotacion();
 		
@@ -248,12 +220,39 @@ public abstract class Tetromino {
 		for(int i = 0; libre && i < bloques.length; i++) {
 			f = bloques[i].getFila() + corrimientos[i].getF();	
 			c = bloques[i].getColumna() + corrimientos[i].getC();
-			libre = libre && f>=0 && f<=20 && c>=0 && c<=9;
+			libre = libre && (f >= 0) && (f <= 20) && (c >= 0) && (c <= 9);
 			if(libre)
 				aux = miGrilla.getBloque(f, c);
 			libre = libre && ((!aux.estaLibre() && estaEnBloques(aux, bloques)) || aux.estaLibre());
 		}
 		return libre;
+	}
+	
+	
+	/**
+	 * Verifica si el movimiento en una direccion dada es posible
+	 * @param f la coordenada de corrimiento en fila
+	 * @param c la coordenada de movimiento en columna
+	 * @return true si se puede mover falso en caso contrario
+	 */
+	private boolean verificarMovimiento(int f, int c) {
+		Bloque bloqueAct = null;
+		Bloque bloqueAdya = null;
+		int columna = 0;
+		int fila = 0;
+		boolean sePuede = true;
+		for(int i = 0; i < bloques.length && sePuede; i++) {
+			bloqueAct = bloques[i];
+			fila = bloqueAct.getFila() + f;
+			columna = bloqueAct.getColumna() + c;
+			if(columna >= 0 && columna <=9 && fila>=0 && fila<=20) {
+				bloqueAdya = miGrilla.getBloque(fila, columna);
+				sePuede = (!bloqueAdya.estaLibre() && estaEnBloques(bloqueAdya, bloques)) || bloqueAdya.estaLibre();
+			}
+			else
+				sePuede = false;
+		}
+		return sePuede;
 	}
 	
 	/**
@@ -264,7 +263,7 @@ public abstract class Tetromino {
 	 */
 	protected boolean estaEnBloques(Bloque b, Bloque[] bloques) {
 		boolean esta = false;
-		for(int i=0; i<bloques.length && !esta; i++) {
+		for(int i = 0; i < bloques.length && !esta; i++) {
 			esta = b.equals(bloques[i]);
 		}
 		return esta;

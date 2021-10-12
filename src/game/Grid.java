@@ -17,11 +17,10 @@ public class Grid {
 	 */
 	public Grid(Juego juego) {
 		this.miJuego = juego;
-		
 		this.cantFilas = 21;
 		this.cantColumnas = 10;
-		matriz = new Bloque[cantFilas][cantColumnas];
-		bloqueLibre = new BloqueGrafico(BloqueGrafico.EMPTY_IMAGE);
+		this.bloqueLibre = new BloqueGrafico(BloqueGrafico.EMPTY_IMAGE);
+		this.matriz = new Bloque[cantFilas][cantColumnas];
 		
 		for(int filas = 0; filas < cantFilas; filas++) {
 			for(int columnas = 0; columnas < cantColumnas; columnas++) {
@@ -65,11 +64,11 @@ public class Grid {
 	public void verificarLineas() {
 		boolean lineaLlena = true;
 		int cant = 0;
-		int fila=cantFilas-1;
-		while(fila>=0) { 
+		int fila = cantFilas-1;
+		while(fila >= 0) { 
 			lineaLlena = true;
-			for(int columna=cantColumnas-1; columna>=0 && lineaLlena; columna--) {
-				lineaLlena=!matriz[fila][columna].estaLibre();
+			for(int columna = cantColumnas-1; columna >= 0 && lineaLlena; columna--) {
+				lineaLlena =! matriz[fila][columna].estaLibre();
 			}
 			if(lineaLlena) {
 				cant++;
@@ -92,8 +91,8 @@ public class Grid {
 	 * @param fila
 	 */
 	private void borrarFila(int fila) {
-		for(int f=fila; f>=0; f--) {
-			for(int c=cantColumnas-1; c>=0; c--){
+		for(int f = fila; f >= 0; f--) {
+			for(int c = cantColumnas-1; c >= 0; c--){
 				matriz[f][c].desocupar();
 				if(f > 0) {
 					if(!matriz[f-1][c].estaLibre())

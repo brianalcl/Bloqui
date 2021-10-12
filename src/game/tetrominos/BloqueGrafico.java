@@ -49,10 +49,7 @@ public class BloqueGrafico extends JLabel{
 	 * Rota la imagen del bloque grafico a la izquierda.
 	 */
 	public void rotarIzquierda() {
-		if(rotacionImagen != 0)
-			rotacionImagen = (rotacionImagen - 1) % 4;
-		else
-			rotacionImagen = 3;
+		rotacionImagen = (rotacionImagen + 3) % 4;
 		setImagen(nombre);
 	}
 	

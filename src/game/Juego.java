@@ -42,28 +42,27 @@ public class Juego {
 	 * Crea un juego nuevo.
 	 */
 	public Juego() {
-		this.miVentana = new Ventana(this);
-		grillaPrincipal=new Grid(this);
-		this.segundos = 0;
-		this.puntaje=0;
-		nivel=1;
 		this.rnd = new Random();
-		
-		miVentana.actualizarPuntaje(puntaje);
-		miVentana.actualizarTiempo(segundos);
-		miVentana.actualizarNivel(nivel);
-		
+		this.segundos = 0;
+		this.puntaje = 0;
+		this.nivel = 1;
 		this.terminoElJuego = false;
+		this.miVentana = new Ventana(this);
+		this.grillaPrincipal = new Grid(this);
+		this.tetrominos = new LinkedList<>();
+		this.miReloj = new Reloj(this, 1000);
 		
-		tetrominos = new LinkedList<>();
-		tetrominos.add(crearTetromino());
-		tetrominos.add(crearTetromino());
-		tetrominos.add(crearTetromino());
-		tetrominos.add(crearTetromino());
-		tetrominoActual = tetrominos.poll();
-		tetrominoActual.aparecer();
+		this.miVentana.actualizarPuntaje(puntaje);
+		this.miVentana.actualizarTiempo(segundos);
+		this.miVentana.actualizarNivel(nivel);
 		
-		miReloj = new Reloj(this, 1000);
+		this.tetrominos.add(crearTetromino());
+		this.tetrominos.add(crearTetromino());
+		this.tetrominos.add(crearTetromino());
+		this.tetrominos.add(crearTetromino());
+		
+		this.tetrominoActual = tetrominos.poll();
+		this.tetrominoActual.aparecer();
 	}
 	
 	/**
@@ -132,11 +131,21 @@ public class Juego {
 	public synchronized void operar(int operacion) {
 		if(!terminoElJuego)
 			switch (operacion) {
-			case MOVER_DERECHA: tetrominoActual.moverDerecha(); break;
-			case MOVER_IZQUIERDA: tetrominoActual.moverIzquierda(); break;
-			case ROTAR_IZQUIERDA: tetrominoActual.rotarIzquierda(); break;
-			case ROTAR_DERECHA: tetrominoActual.rotarDerecha(); break;
-			case MOVER_ABAJO: if(tetrominoActual.bajar()) verificarLineasSeguir(); break;
+			case MOVER_DERECHA: 
+				tetrominoActual.moverDerecha(); 
+				break;
+			case MOVER_IZQUIERDA: 
+				tetrominoActual.moverIzquierda(); 
+				break;
+			case ROTAR_IZQUIERDA: 
+				tetrominoActual.rotarIzquierda(); 
+				break;
+			case ROTAR_DERECHA: 
+				tetrominoActual.rotarDerecha(); 
+				break;
+			case MOVER_ABAJO: 
+				if(tetrominoActual.bajar()) verificarLineasSeguir(); 
+				break;
 			}
 	}
 	
@@ -175,7 +184,7 @@ public class Juego {
 	 * Cambia es estado del juego a terminado y le avisa a la ventana que lo actualice.
 	 */
 	private void finDelJuego() {
-		terminoElJuego=true;
+		terminoElJuego = true;
 		miVentana.finDelJuego();
 	}
 	

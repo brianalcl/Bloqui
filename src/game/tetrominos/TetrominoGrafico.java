@@ -26,25 +26,6 @@ public class TetrominoGrafico extends JLabel{
 		for (int i = 0; i < 4; i++) {
 			misBloquesGraficos[i] = new BloqueGrafico(nombre);
 		}
-		
-	}
-	
-	/**
-	 * Rota el tetromino grafico a la derecha.
-	 */
-	public void rotarDerecha() {
-		for(BloqueGrafico bg: misBloquesGraficos) {
-			bg.rotarDerecha();
-		}
-	}
-	
-	/**
-	 * Rota el tetromino grafico a la izquierda.
-	 */
-	public void rotarIzquierda() {
-		for(BloqueGrafico bg: misBloquesGraficos) {
-			bg.rotarIzquierda();
-		}
 	}
 	
 	/**

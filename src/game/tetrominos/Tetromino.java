@@ -122,10 +122,7 @@ public abstract class Tetromino {
 		
 		rotacion = (rotacion + 2) % 4;
 		
-		if(roto) {
-			miRepresentacion.rotarIzquierda();
-		}
-		else
+		if(!roto)
 			rotacion = (rotacion + 1) % 4;
 	}
 	
@@ -137,10 +134,7 @@ public abstract class Tetromino {
 		
 		rotacion = (rotacion + 1) % 4;
 		
-		if(roto) {
-			miRepresentacion.rotarDerecha();
-		}
-		else
+		if(!roto) 
 			rotacion = (rotacion + 3) % 4;
 	}
 	

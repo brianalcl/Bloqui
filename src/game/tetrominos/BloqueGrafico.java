@@ -9,7 +9,6 @@ public class BloqueGrafico extends JLabel{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int rotacionImagen;
 	private String nombre;
 	public static final String EMPTY_IMAGE = "empty";
 	
@@ -19,7 +18,6 @@ public class BloqueGrafico extends JLabel{
 	 */
 	public BloqueGrafico(String nombre) {
 		super();
-		this.rotacionImagen = 0;
 		this.nombre = nombre;
 		setImagen(this.nombre);
 	}
@@ -31,26 +29,9 @@ public class BloqueGrafico extends JLabel{
 	public void setImagen(String nombre) {
 		String rutaImagen = new StringBuilder("/assets/img/bloques/")
 				.append(nombre)
-				.append(rotacionImagen)
-				.append(".png")
+				.append("0.png")
 				.toString();
 		setIcon(new javax.swing.ImageIcon(game.tetrominos.BloqueGrafico.class.getResource(rutaImagen)));
-	}
-	
-	/**
-	 * Rota la imagen del bloque grafico a la derecha.
-	 */
-	public void rotarDerecha() {
-		rotacionImagen = (rotacionImagen + 1) % 4;
-		setImagen(nombre);
-	}
-	
-	/**
-	 * Rota la imagen del bloque grafico a la izquierda.
-	 */
-	public void rotarIzquierda() {
-		rotacionImagen = (rotacionImagen + 3) % 4;
-		setImagen(nombre);
 	}
 	
 }

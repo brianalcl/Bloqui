@@ -66,50 +66,6 @@ public class Juego {
 	}
 	
 	/**
-	 * Crea un tetromino aleatirio.
-	 * @return Un tetromino.
-	 */
-	private Tetromino crearTetromino() {
-		Tetromino tet = null;
-
-		rnd = new Random();		
-		int tirada = rnd.nextInt(7); // Numero aleatorio en [0,7)
-		switch ( tirada ) {
-		case 0:	tet = new 
-			TetrominoI(grillaPrincipal);
-			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
-			break;
-		case 1:	
-			tet = new TetrominoL(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
-			break;
-		case 2:	
-			tet = new TetrominoJ(grillaPrincipal);
-			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
-			break;
-		case 3:	
-			tet = new TetrominoO(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
-			break;
-		case 4:	
-			tet = new TetrominoS(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
-			break;
-		case 5:	
-			tet = new TetrominoT(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
-			break;
-		case 6:	
-			tet = new TetrominoZ(grillaPrincipal);	
-			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
-			break;
-		default: //TODO Colocar excepcion
-		}
-		
-		return tet;
-	}
-	
-	/**
 	 * Inicia el juego
 	 */
 	public void start() {
@@ -150,18 +106,6 @@ public class Juego {
 	}
 	
 	/**
-	 * Le informa a la grilla que controle las lineas
-	 */
-	private void verificarLineasSeguir() {
-		grillaPrincipal.verificarLineas();
-		tetrominos.add(crearTetromino());
-		tetrominoActual = tetrominos.poll();
-		if(!tetrominoActual.aparecer()) {
-			finDelJuego();
-		}
-	}
-	
-	/**
 	 * Incrementa el puntaje con la cantidad pasada por parametro.
 	 * @param p
 	 */
@@ -178,14 +122,6 @@ public class Juego {
 	public void addSegundo() {
 		segundos++;
 		miVentana.actualizarTiempo(segundos);
-	}
-	
-	/**
-	 * Cambia es estado del juego a terminado y le avisa a la ventana que lo actualice.
-	 */
-	private void finDelJuego() {
-		terminoElJuego = true;
-		miVentana.finDelJuego();
 	}
 	
 	/**
@@ -238,5 +174,61 @@ public class Juego {
 		miReloj.detener();
 		miReloj = new Reloj(this, 1000);
 		miReloj.start();
+	}
+	
+	/**
+	 * Crea un tetromino aleatirio.
+	 * @return Un tetromino.
+	 */
+	private Tetromino crearTetromino() {
+		Tetromino tet = null;
+
+		rnd = new Random();		
+		int tirada = rnd.nextInt(7); // Numero aleatorio en [0,7)
+		switch ( tirada ) {
+		case 0:	tet = new 
+			TetrominoI(grillaPrincipal);
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
+			break;
+		case 1:	
+			tet = new TetrominoL(grillaPrincipal);	
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
+			break;
+		case 2:	
+			tet = new TetrominoJ(grillaPrincipal);
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
+			break;
+		case 3:	
+			tet = new TetrominoO(grillaPrincipal);	
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
+			break;
+		case 4:	
+			tet = new TetrominoS(grillaPrincipal);	
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
+			break;
+		case 5:	
+			tet = new TetrominoT(grillaPrincipal);	
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
+			break;
+		case 6:	
+			tet = new TetrominoZ(grillaPrincipal);	
+			miVentana.agregarSiguiente(tet.getTetrominoGrafico());
+			break;
+		}
+		
+		return tet;
+	}
+	
+	/**
+	 * Le informa a la grilla que controle las lineas
+	 */
+	private void verificarLineasSeguir() {
+		grillaPrincipal.verificarLineas();
+		tetrominos.add(crearTetromino());
+		tetrominoActual = tetrominos.poll();
+		if(!tetrominoActual.aparecer()) {
+			terminoElJuego = true;
+			miVentana.finDelJuego();
+		}
 	}
 }

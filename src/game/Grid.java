@@ -87,6 +87,20 @@ public class Grid {
 	}
 	
 	/**
+	 * Restaura la grilla a su estado inicial.
+	 */
+	public void restaurar() {
+		for(int filas = 0; filas < cantFilas; filas++) {
+			for(int columnas = 0; columnas < cantColumnas; columnas++) {
+				
+				matriz[filas][columnas] = new Bloque(filas, columnas, this);
+				
+				matriz[filas][columnas].desocupar();
+			}
+		}
+	}
+	
+	/**
 	 * Borra la fila correspondiente a la posición pasada por parametro
 	 * @param fila
 	 */
@@ -102,19 +116,4 @@ public class Grid {
 			}
 		}
 	}
-	
-	/**
-	 * Restaura la grilla a su estado inicial.
-	 */
-	public void restaurar() {
-		for(int filas = 0; filas < cantFilas; filas++) {
-			for(int columnas = 0; columnas < cantColumnas; columnas++) {
-				
-				matriz[filas][columnas] = new Bloque(filas, columnas, this);
-				
-				matriz[filas][columnas].desocupar();
-			}
-		}
-	}
-	
 }

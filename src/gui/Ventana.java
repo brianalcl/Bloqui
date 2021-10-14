@@ -45,28 +45,6 @@ public class Ventana extends JFrame{
 	}
 	
 	/**
-	 * Crea toda la ventana y su funcionalidad.
-	 */
-	private void initialize() {
-		getContentPane().setLayout(null);
-		setResizable(false);
-		setBounds(100, 100, 565, 663);
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		getContentPane().setLayout(null);
-		setIconImage(new ImageIcon(getClass().getResource("/assets/img/icon/Icon.png")).getImage());
-		setTitle("Bloqui");
-		setVisible(true);
-		
-		crearInfoStats();
-		crearInfoTetro();
-		crearPanelJuego();
-		crearFondoVentana();
-		agregarControles();
-		
-		repaint();
-	}
-	
-	/**
 	 * Actualiza el puntaje en el label correspondiente.
 	 * @param puntaje el puntaje.
 	 */
@@ -136,6 +114,28 @@ public class Ventana extends JFrame{
 		getContentPane().add(panelFinDeJuego);
 		getContentPane().setComponentZOrder(panelFinDeJuego, 2);
 		setFocusable(true);
+		repaint();
+	}
+	
+	/**
+	 * Crea toda la ventana y su funcionalidad.
+	 */
+	private void initialize() {
+		getContentPane().setLayout(null);
+		setResizable(false);
+		setBounds(100, 100, 565, 663);
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+		setIconImage(new ImageIcon(getClass().getResource("/assets/img/icon/Icon.png")).getImage());
+		setTitle("Bloqui");
+		setVisible(true);
+		
+		crearInfoStats();
+		crearInfoTetro();
+		crearPanelJuego();
+		crearFondoVentana();
+		agregarControles();
+		
 		repaint();
 	}
 	

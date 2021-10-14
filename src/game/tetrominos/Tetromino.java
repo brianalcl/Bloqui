@@ -197,7 +197,7 @@ public abstract class Tetromino {
 		columna = bloque.getColumna() + corrimiento.getC();
 		if(columna >= 0 && columna <=9 && fila>=0 && fila<=20) {
 			bloqueAdya = miGrilla.getBloque(fila, columna);
-			sePuede = (!bloqueAdya.estaLibre() && estaEnBloques(bloqueAdya, bloques)) || bloqueAdya.estaLibre();
+			sePuede = (!bloqueAdya.estaLibre() && estaEnBloques(bloqueAdya)) || bloqueAdya.estaLibre();
 		}
 		else
 			sePuede = false;
@@ -207,10 +207,9 @@ public abstract class Tetromino {
 	/**
 	 * Retorna true si el bloque b esta dentro de la estructura de bloques
 	 * @param b un bloque
-	 * @param bloques un arreglo de bloques
 	 * @return true si b esta dentro de la estructura de bloques o false si no lo esta.
 	 */
-	private boolean estaEnBloques(Bloque b, Bloque[] bloques) {
+	private boolean estaEnBloques(Bloque b) {
 		boolean esta = false;
 		for(int i = 0; i < bloques.length && !esta; i++) {
 			esta = b.equals(bloques[i]);

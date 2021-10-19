@@ -182,8 +182,6 @@ public class Juego {
 	 */
 	private Tetromino crearTetromino() {
 		Tetromino tet = null;
-
-		rnd = new Random();		
 		int tirada = rnd.nextInt(7); // Numero aleatorio en [0,7)
 		switch ( tirada ) {
 		case 0:	tet = new 

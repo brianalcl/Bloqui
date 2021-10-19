@@ -77,7 +77,7 @@ public class Ventana extends JFrame{
 	
 	/**
 	 * Agrega en el panel lateral una imagen con el tetromino siguiente quitando antes el anterior.
-	 * @param nombre
+	 * @param tg
 	 */
 	public void agregarSiguiente(JLabel tg) {
 		for (int i = 0; i < siguientes.length - 1; i++) {
@@ -141,7 +141,7 @@ public class Ventana extends JFrame{
 	
 	/**
 	 * Crea el sistema de Listeners para dectectar preciones de las teclas
-	 * arriba, abajo, izquierda, derecha, espacio, x, z y realiza distintas acciones dependiendo de la tecla precionada 
+	 * arriba, abajo, izquierda, derecha, x, z y realiza distintas acciones dependiendo de la tecla presionada 
 	 */
 	private void agregarControles() {
 		this.addKeyListener(new KeyAdapter() {								//Movimiento lateral

@@ -8,3 +8,5 @@ Esta es una simple replica del famoso juego Tetris. Fue creada como proyecto uni
 - Entre otros.
 
 El proyecto original fue creado por 4 personas, luego tome ese proyecto y le realice cambios para obtener (si se quiere) una versión diferente del mismo. En esta versión se repararon muchos problemas y se cambio alguna funcionalidad.
+
+Proyecto original ahora en estado publico: https://github.com/NawlFountains/tdp-proyecto-2
